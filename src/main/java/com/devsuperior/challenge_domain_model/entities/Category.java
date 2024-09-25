@@ -6,11 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_category")
 public class Category {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
 
+    @OneToMany(mappedBy = "category")
     private List<Activity> activities=new ArrayList<>();
 
     public Category() {

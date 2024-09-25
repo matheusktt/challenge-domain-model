@@ -6,13 +6,22 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "tb_participant")
 public class Participant {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @Column(unique = true)
     private String email;
 
-
+    @ManyToMany
+    @JoinTable(name = "tb_participant_activity",
+            joinColumns = @JoinColumn(name = "participant_id"),
+            inverseJoinColumns = @JoinColumn(name = "activity_id"))
     private Set<Activity> activities=new HashSet<>();
 
     public Participant() {

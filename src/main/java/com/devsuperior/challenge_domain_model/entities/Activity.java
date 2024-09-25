@@ -4,15 +4,27 @@ import jakarta.persistence.*;
 
 import java.util.*;
 
+@Entity
+@Table(name = "tb_activity")
 public class Activity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "activity")
     private List<Block> blocks = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "activities")
     private Set<Participant> participants = new HashSet<>();
 
     public Activity() {
